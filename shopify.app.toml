@@ -1,3 +1,32 @@
-# This file stores configurations for your Shopify app.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-scopes = "write_products"
+client_id = "163e18bcb0dcb41881cbefe2e6b02d18"
+name = "rickycito-test"
+application_url = "https://gt-handbags-talent-ethics.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "ricky-checkout-extensibility.myshopify.com"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [
+  "https://gt-handbags-talent-ethics.trycloudflare.com/auth/callback",
+  "https://gt-handbags-talent-ethics.trycloudflare.com/auth/shopify/callback",
+  "https://gt-handbags-talent-ethics.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[app_proxy]
+url = "https://gt-handbags-talent-ethics.trycloudflare.com"
+subpath = "cn-byf-ext-config"
+prefix = "apps"
+
+[pos]
+embedded = false
