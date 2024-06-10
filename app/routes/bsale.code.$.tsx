@@ -11,35 +11,29 @@ export const loader = async ({ request }: { request: any }) => {
     // exchange code for a token
     const response = await fetch(
       `https://oauth.bsale.io/gateway/oauth_response.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        code,
-        usrToken: "5f5228fa61173d6fdc47ab5b82c03efcf0bd373a",
-        appId: "7vz13ywk9"
-      })
-    });
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          code,
+          usrToken: "5f5228fa61173d6fdc47ab5b82c03efcf0bd373a",
+          appId: "7vz13ywk9"
+        })
+      });
 
     // convert response to JSON
     const data = await response.json();
     DATA[id] = data.data.accessToken;
 
-    return {
-      accessToken: data.data.accessToken
-    }
+    return { accessToken: data.data.accessToken }
   }
   catch (error) {
     console.error(error);
   }
 
-  return json(
-    {
-      accessToken: ""
-    }
-  );
+  return { accessToken: "" }
 }
 
 

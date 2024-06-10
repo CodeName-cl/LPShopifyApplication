@@ -6,37 +6,48 @@ import {
   Button,
   Text
 } from "@shopify/polaris";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BsaleToken from "src/components/polaris/BsaleToken";
+import AsyncSelect from "src/components/polaris/AsyncSelect";
+import Bsale from "src/infra/Bsale";
 
 
-export default function WizardStep2(): JSX.Element {
+export default function WizardStep2({ apiURL, shopifyLocations }: { apiURL: string, shopifyLocations: any[] }): JSX.Element {
 
-  const [connected, setConnected] = useState(false);
+  // TODO: change access token to empty string by default
+  const [accessToken, setAccessToken] = useState('d2f8a9321e2ae69af120e97fc54f5021f0efbe5e');
+
+  // TODO: change connected default to false
+  const [connected, setConnected] = useState(true);
 
   const [canContinue] = useState(true);
-  // TODO: move to a component for loading bsale
-  const [selected, setSelected] = useState('today');
+  const [bsaleOffices, setBsaleOffices] = useState([]);
 
   const handleSelectChange = useCallback(
     (value: string) => setSelected(value),
     [],
   );
 
-  // TODO: Load options from API.
-  const options = [
-    { label: 'Today', value: 'today' },
-    { label: 'Yesterday', value: 'yesterday' },
-    { label: 'Last 7 days', value: 'lastWeek' },
-  ];
-
   const handleAccountConnected = useCallback((accessToken: string) => {
     setConnected(true);
+    setAccessToken(accessToken);
   }, [setConnected]);
 
   const handleAccountDisconnected = useCallback((accessToken: string) => {
     setConnected(false);
+    setAccessToken('');
   }, [setConnected]);
+
+  useEffect(() => {
+    const bsale = new Bsale(apiURL, accessToken);
+
+    bsale.getOffices().then((data) => {
+      setBsaleOffices(data.items.map((item: any) => {
+        return { label: item.name, value: item.id.toString() }
+      }))
+    });
+
+  }, [apiURL, accessToken]);
 
   return (
     <Page
@@ -60,21 +71,15 @@ export default function WizardStep2(): JSX.Element {
             />
 
             {/* // TODO: move to a bsale component */}
-            <Select
-              disabled={!connected}
+            <AsyncSelect
               label="Select Bsale Office"
-              options={options}
-              onChange={handleSelectChange}
-              value={selected}
+              options={bsaleOffices}
             />
 
             {/* // TODO: move to a shopify component */}
-            <Select
-              disabled={!connected}
+            <AsyncSelect
               label="Select Shopify Location"
-              options={options}
-              onChange={handleSelectChange}
-              value={selected}
+              options={shopifyLocations}
             />
 
             {/* // TODO: write correct text and add a link to support */}

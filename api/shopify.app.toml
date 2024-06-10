@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "163e18bcb0dcb41881cbefe2e6b02d18"
+name = "rickycito-test"
+application_url = "https://wc-le-commissions-bloom.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [
+  "https://wc-le-commissions-bloom.trycloudflare.com/auth/callback",
+  "https://wc-le-commissions-bloom.trycloudflare.com/auth/shopify/callback",
+  "https://wc-le-commissions-bloom.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[app_proxy]
+url = "https://wc-le-commissions-bloom.trycloudflare.com/"
+subpath = "cn-byf-ext-config"
+prefix = "apps"
+
+[pos]
+embedded = false

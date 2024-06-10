@@ -7,9 +7,12 @@ export default function BsaleToken(
 ) {
 
   // init state
-  const [connected, setConnected] = useState(false);
-  const [companyRUT, setCompanyRUT] = useState('');
-  const [accessToken, setAccessToken] = useState('');
+  // TODO: change connected to false by default
+  const [connected, setConnected] = useState(true);
+  // TODO: change companyRUT to empty string by default
+  const [companyRUT, setCompanyRUT] = useState('76.802.842-7');
+  // TODO: remove access token de pruebas
+  const [accessToken, setAccessToken] = useState('d2f8a9321e2ae69af120e97fc54f5021f0efbe5e');
 
   // generate uuid
   const [id, setID] = useState(Math.random().toString(36).substring(7));
@@ -19,7 +22,7 @@ export default function BsaleToken(
     const interval = setInterval(async () =>
     {
       // query the token from the server
-      const response = await fetch(`https://gt-handbags-talent-ethics.trycloudflare.com/bsale/token/${id}`)
+      const response = await fetch(`${window.location.origin}/bsale/token/${id}`)
       const data = await response.json();
 
       // if token is present, set it and call the callback
@@ -35,6 +38,7 @@ export default function BsaleToken(
 
   const handleAction = useCallback(() => {
     // init login
+    // TODO: move app_id to an environment variable
     window.open(
       `https://oauth.bsale.io/login?app_id=7vz13ywk9&redirect_uri=${window.location.origin}/bsale/code/${id}&client_code=${companyRUT.split('.').join('')}`,
       "_blank"
@@ -44,7 +48,7 @@ export default function BsaleToken(
   // handle disconnect bsale account
   const handleDisconnect = useCallback(() => {
     // remove token from server
-    fetch(`https://gt-handbags-talent-ethics.trycloudflare.com/bsale/disconnect/${id}`);
+    fetch(`${window.location.origin}/bsale/disconnect/${id}`);
 
     // reset states
     setAccessToken('');
@@ -81,8 +85,8 @@ export default function BsaleToken(
       title="Bsale account"
       action={{
         content: buttonText,
-        disabled: companyRUT.length < 11,
         onAction: connected ? handleDisconnect : handleAction,
+        disabled: companyRUT.length < 11, // Fix: Add the 'disabled' property
       }}
       details={details}
       termsOfService={terms}
