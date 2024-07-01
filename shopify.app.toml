@@ -2,7 +2,7 @@
 
 client_id = "163e18bcb0dcb41881cbefe2e6b02d18"
 name = "rickycito-test"
-application_url = "https://ex-indicating-trees-mailman.trycloudflare.com"
+application_url = "https://leslie-f-hub-joins.trycloudflare.com"
 embedded = true
 
 [build]
@@ -15,16 +15,16 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://ex-indicating-trees-mailman.trycloudflare.com/auth/callback",
-  "https://ex-indicating-trees-mailman.trycloudflare.com/auth/shopify/callback",
-  "https://ex-indicating-trees-mailman.trycloudflare.com/api/auth/callback"
+  "https://leslie-f-hub-joins.trycloudflare.com/auth/callback",
+  "https://leslie-f-hub-joins.trycloudflare.com/auth/shopify/callback",
+  "https://leslie-f-hub-joins.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-01"
 
 [app_proxy]
-url = "https://ex-indicating-trees-mailman.trycloudflare.com"
+url = "https://leslie-f-hub-joins.trycloudflare.com"
 subpath = "cn-byf-ext-config"
 prefix = "apps"
 

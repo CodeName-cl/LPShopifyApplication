@@ -12,31 +12,29 @@ import AsyncSelect from "src/components/polaris/AsyncSelect";
 import Bsale from "src/infra/Bsale";
 
 
-export default function WizardStep2({ apiURL, shopifyLocations }: { apiURL: string, shopifyLocations: any[] }): JSX.Element {
+export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { apiURL: string, shopifyLocations: any[], onSubmit: CallableFunction }): JSX.Element {
 
   // TODO: change access token to empty string by default
   const [accessToken, setAccessToken] = useState('d2f8a9321e2ae69af120e97fc54f5021f0efbe5e');
 
   // TODO: change connected default to false
-  const [connected, setConnected] = useState(true);
+  const [isConnected, setIsConnected] = useState(true);
 
   const [canContinue] = useState(true);
   const [bsaleOffices, setBsaleOffices] = useState([]);
 
-  const handleSelectChange = useCallback(
-    (value: string) => setSelected(value),
-    [],
-  );
+  const [selectedBsaleOffice, setSelectedBsaleOffice] = useState('');
+  const [selectedShopifyLocation, setSelectedShopifyLocation] = useState('');
 
   const handleAccountConnected = useCallback((accessToken: string) => {
-    setConnected(true);
+    setIsConnected(true);
     setAccessToken(accessToken);
-  }, [setConnected]);
+  }, [setIsConnected]);
 
   const handleAccountDisconnected = useCallback((accessToken: string) => {
-    setConnected(false);
+    setIsConnected(false);
     setAccessToken('');
-  }, [setConnected]);
+  }, [setIsConnected]);
 
   useEffect(() => {
     const bsale = new Bsale(apiURL, accessToken);
@@ -48,6 +46,18 @@ export default function WizardStep2({ apiURL, shopifyLocations }: { apiURL: stri
     });
 
   }, [apiURL, accessToken]);
+
+  const handleBsaleOfficeChange = useCallback((value: string) => {
+    setSelectedBsaleOffice(value);
+  }, [setSelectedBsaleOffice]);
+
+  const handleShopifyLocationChange = useCallback((value: string) => {
+    setSelectedShopifyLocation(value);
+  }, [setSelectedShopifyLocation]);
+
+  const handleSubmitClick = useCallback(() => {
+    onSubmit(selectedBsaleOffice, selectedShopifyLocation);
+  }, [selectedBsaleOffice, selectedShopifyLocation, onSubmit]);
 
   return (
     <Page
@@ -63,7 +73,7 @@ export default function WizardStep2({ apiURL, shopifyLocations }: { apiURL: stri
 
       <div style={{ width: "70%", marginRight: "auto", marginLeft: "auto" }} >
         {/* // TODO: move this to a css file ^^ */}
-        <Form onSubmit={() => { }} >
+        <Form onSubmit={handleSubmitClick} >
           <FormLayout>
             <BsaleToken
               onAccountConnected={handleAccountConnected}
@@ -74,12 +84,14 @@ export default function WizardStep2({ apiURL, shopifyLocations }: { apiURL: stri
             <AsyncSelect
               label="Select Bsale Office"
               options={bsaleOffices}
+              onChange={handleBsaleOfficeChange}
             />
 
             {/* // TODO: move to a shopify component */}
             <AsyncSelect
               label="Select Shopify Location"
               options={shopifyLocations}
+              onChange={handleShopifyLocationChange}
             />
 
             {/* // TODO: write correct text and add a link to support */}

@@ -2,7 +2,6 @@ import requests
 from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 
-
 app = FastAPI()
 
 
@@ -25,6 +24,7 @@ def read_root():
 def bsale_proxy_get(access_token: str = Header(None)):
     print("access_token", access_token)
     # TODO: move url to argument to make it more general
+    # TODO: implement bsale API Rate limiter
     response = requests.get(
         "https://api.bsale.cl/v1/offices.json",
         headers={"access_token": access_token}

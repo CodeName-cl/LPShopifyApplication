@@ -42,6 +42,7 @@ export default function WizardStep3(): JSX.Element {
           portrait
           title={automationButton.title}
           primaryAction={{
+            // TODO: mejorar mensaje
             content: isEnabled ? "Deshabilitar" : "Habilitar",
             // tslint:disable-next-line
             variant: isEnabled ? "secondary" : "primary",

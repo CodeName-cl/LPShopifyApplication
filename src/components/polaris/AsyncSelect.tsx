@@ -4,7 +4,7 @@ import {
 import { useState, useCallback, useEffect } from "react";
 
 
-export default function AsyncSelect({ label, options }: { label: string, options: any })
+export default function AsyncSelect({ label, options, onChange }: { label: string, options: any, onChange: CallableFunction })
 {
   // set states
   const [isLoading, setIsLoading] = useState(false);
@@ -12,11 +12,19 @@ export default function AsyncSelect({ label, options }: { label: string, options
 
   // set callback
   const handleSelectChange = useCallback((value: string) => {
-    setSelected(value)
-  }, [setSelected]);
+    setSelected(value);
+    onChange(value);
+  }, [setSelected, onChange]);
 
   // set effect
-  useEffect(() => { setIsLoading(false); }, [options]);
+  useEffect(() => {
+    setIsLoading(false);
+
+    // if options has more than one option, then it selects the first one
+    handleSelectChange(options[0]?.value);
+    setSelected(options[0]?.value);
+
+  }, [options, handleSelectChange]);
 
   return (
     <Select

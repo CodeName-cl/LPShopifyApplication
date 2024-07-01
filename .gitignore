@@ -17,3 +17,6 @@ node_modules
 
 .mypy_cache
 __pycache__
+node_cache
+*test.toml
+key.json
