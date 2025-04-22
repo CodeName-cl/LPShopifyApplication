@@ -4,29 +4,38 @@ import { useLoaderData } from "@remix-run/react";
 import Home from "src/containers/Home";
 import type { HiredAutomation } from "src/domain/Automation";
 import { readEntity } from "src/infra/Datastore.server";
+import { authenticate } from "~/shopify.server";
 
-export const loader = async (): Promise<HiredAutomation[]> => {
-  const data = await readEntity("test-shop")  // TODO: replace with real shop
-  if (!data) return [];
+interface LoaderData {
+  automations: HiredAutomation[];
+}
 
-  return data.integrations?.map((integration) => {
-    return {
-      id: "1",
-      type: "bsale-inventory",
-      image: '/card-placeholder.png',
-      title: integration.name,
-      description: "Inventory Synchronization",
-      url: "https://www.loadingplay.com/",
-    } as HiredAutomation
-  });
+export const loader = async ({ request }: { request: any }): Promise<LoaderData> => {
+
+  const { session } = await authenticate.admin(request);
+  const data = await readEntity(session.shop);
+
+  return {
+    automations: data?.integrations?.map((integration) => {
+      return {
+        id: "1",
+        type: integration.name,
+        image: '/card-placeholder.png',
+        title: integration.name,
+        description: "Sincronización de inventario entre Bsale y Shopify",
+        url: "https://www.loadingplay.com/",
+      } as HiredAutomation
+    }) || [],
+  };
+
 }
 
 export default function Index() {
-  const loaderData = useLoaderData() as HiredAutomation[];
+  const loaderData = useLoaderData() as LoaderData;
 
   return (
     <>
-      <Home automations={loaderData} ></Home>
+      <Home automations={loaderData.automations} ></Home>
     </>
   );
 }

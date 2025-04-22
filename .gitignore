@@ -20,3 +20,4 @@ __pycache__
 node_cache
 *test.toml
 key.json
+.shopify

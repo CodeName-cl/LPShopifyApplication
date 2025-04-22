@@ -8,19 +8,19 @@ export default function EmptyScreen() {
     <Page>
       <Card>
         <EmptyState
-          heading="Configure your automation"
+          heading="Configura tu automatización"
           action={{
-            content: 'Start with Automations',
+            content: 'Comienza con las automatizaciones',
             url: '/app/wizard/1'
           }}
           secondaryAction={{
-            content: 'Talk To Sales and Support',
+            content: 'Hablar con Soporte/Ventas',
             target: '_blank',
             url: 'https://www.loadingplay.com/',
           }}
           image="/empty.png"
         >
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis justo non ligula laoreet, sed viverra ex faucibus. Donec id egestas nunc. Nullam dignissim, lectus.</p>
+          <p>Te guiaremos paso a paso para que puedas configurar tu automatización.</p>
         </EmptyState>
       </Card>
     </Page>

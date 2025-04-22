@@ -1,32 +1,33 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "163e18bcb0dcb41881cbefe2e6b02d18"
-name = "rickycito-test"
-application_url = "https://leslie-f-hub-joins.trycloudflare.com"
+application_url = "https://properly-gsm-gps-soft.trycloudflare.com"
 embedded = true
-
-[build]
-automatically_update_urls_on_dev = true
-dev_store_url = "ricky-checkout-extensibility.myshopify.com"
-
-[access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-use_legacy_install_flow = true
-
-[auth]
-redirect_urls = [
-  "https://leslie-f-hub-joins.trycloudflare.com/auth/callback",
-  "https://leslie-f-hub-joins.trycloudflare.com/auth/shopify/callback",
-  "https://leslie-f-hub-joins.trycloudflare.com/api/auth/callback"
-]
+name = "rickycito-test"
+handle = "rickycito-test"
 
 [webhooks]
 api_version = "2024-01"
 
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_inventory,read_locations,read_markets_home,read_shipping,unauthenticated_read_content,unauthenticated_read_product_pickup_locations,write_inventory,write_products,write_shipping"
+use_legacy_install_flow = false
+
+[auth]
+redirect_urls = [
+  "https://properly-gsm-gps-soft.trycloudflare.com/auth/callback",
+  "https://properly-gsm-gps-soft.trycloudflare.com/auth/shopify/callback",
+  "https://properly-gsm-gps-soft.trycloudflare.com/api/auth/callback"
+]
+
 [app_proxy]
-url = "https://leslie-f-hub-joins.trycloudflare.com"
+url = "https://properly-gsm-gps-soft.trycloudflare.com"
 subpath = "cn-byf-ext-config"
 prefix = "apps"
 
 [pos]
 embedded = false
+
+[build]
+automatically_update_urls_on_dev = true

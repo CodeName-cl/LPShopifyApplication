@@ -16,8 +16,6 @@ export const readEntity = async (shop: string): Promise<Config | undefined> => {
   const taskKey = datastore.key([kind, shop]);
   const [entity] = await datastore.get(taskKey);
 
-  console.log("aaaaaaaa", entity);
-
   return entity;
 };
 

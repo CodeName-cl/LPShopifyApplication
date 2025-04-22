@@ -63,17 +63,14 @@ export default function BsaleToken(
 
   // init texts from connected state
   const accountName = connected ? 'Bsale' : '';
-  const buttonText = connected ? 'Disconnect' : 'Connect';
-  const details = connected ? 'Account connected' : 'No account connected';
+  const buttonText = connected ? 'Desconectar' : 'Conectar';
+  const details = connected ? 'Cuenta conectada' : 'No se ha encontrado la cuenta de Bsale. Conéctate para continuar.';
 
   // init terms section
   const terms = connected ? null : (
     <p>
       <RUTInput onChange={setCompanyRUT} />
       <br />
-      By clicking <strong>Connect</strong>, you agree to accept Sample App’s{' '}
-      <Link url="https://www.loadingplay.com" target="_blank" >terms and conditions</Link>. You’ll pay a
-      commission rate of 15% on sales made through Sample App.
     </p>
   );
 
@@ -82,7 +79,7 @@ export default function BsaleToken(
     <AccountConnection
       accountName={accountName}
       connected={connected}
-      title="Bsale account"
+      title="Cuenta de Bsale"
       action={{
         content: buttonText,
         onAction: connected ? handleDisconnect : handleAction,

@@ -11,10 +11,10 @@ import type { HiredAutomation } from "src/domain/Automation";
 export default function HiredAutomations({ automations }: { automations: HiredAutomation[] }) {
   return (
     <Page
-      title="Your Automations"
-      subtitle="Created automations"
+      title="Tus Automatizaciones"
+      subtitle="Automatizaciones creadas"
       primaryAction={{
-        content: "+ Add automation",
+        content: "+ Nueva Automatización",
         url: "/app/wizard/1",
       }}
     >
@@ -36,7 +36,7 @@ export default function HiredAutomations({ automations }: { automations: HiredAu
                     plain: true,
                     url: automation.url,
                     target: "_blank",
-                    content: 'Learn more',
+                    content: 'leer más',
                     icon: ExternalIcon
                   }}
                   description={automation.description}

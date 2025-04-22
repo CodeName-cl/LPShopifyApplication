@@ -25,15 +25,7 @@ export default function SelectAutomation(
     setAutomationButtons(
       // map automation buttons to find the selected one
       automationButtons.map((automationButton) => {
-
-        // if found, then change selected state
-        if (automationButton.id === button.id)
-          return {
-            ...automationButton, isSelected: !automationButton.isSelected
-          };
-
-        // if not found, then reset selected state
-        return { ...automationButton, isSelected: false };
+        return { ...automationButton, isSelected: automationButton.id === button.id };
       })
     );
   }, [automationButtons]);
@@ -51,8 +43,11 @@ export default function SelectAutomation(
         automationButtons.map((automationButton) => (
           <Layout.Section key={automationButton.id} variant="oneThird" >
             <AutomationSelectCard
+              type={automationButton.type}
               automationButton={automationButton}
-              onAutomationSelected={selectedChange}
+              onAutomationSelected={() => {
+                selectedChange(automationButton);
+              }}
             />
           </Layout.Section>
         ))

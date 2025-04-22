@@ -61,10 +61,10 @@ export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { ap
 
   return (
     <Page
-      title="Configure Automation"
-      subtitle="Step 2 of 3"
+      title="Configurar automatización"
+      subtitle="Paso 2 de 3"
       primaryAction={{
-        content: "Next Step",
+        content: "Continuar",
         url: "/app/wizard/3",
         disabled: !canContinue
       }}
@@ -89,17 +89,17 @@ export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { ap
 
             {/* // TODO: move to a shopify component */}
             <AsyncSelect
-              label="Select Shopify Location"
+              label="Elige la ubicación de Shopify"
               options={shopifyLocations}
               onChange={handleShopifyLocationChange}
             />
 
             {/* // TODO: write correct text and add a link to support */}
             <Text as="p" alignment="center" >
-              kl jlk jklajs dklajsl kajsdklj aslkdjaskljd j0ioqw90wq0aj ajsdkl
+              Si necesitas ayuda, pof favor contacta a nuestro <a href="https://www.loadingplay.com" target="__blank" >soporte técnico</a>.
             </Text>
 
-            <Button submit >Guardar</Button>
+            <Button submit >Continuar</Button>
           </FormLayout>
         </Form>
       </div>

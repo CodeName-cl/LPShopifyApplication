@@ -15,8 +15,8 @@ const automationButton = {
   id: "1",
   type: "bsale-inventory",
   image: '/card-placeholder.png',
-  title: "Inventory Synchronization",
-  description: "Inventory Synchronization",
+  title: "Sincronización de inventario",
+  description: "Sincronización de inventario",
   url: "https://www.loadingplay.com/",
 }
 
@@ -28,10 +28,10 @@ export default function WizardStep3(): JSX.Element {
 
   return (
     <Page
-      title="Configure Automation"
+      title="Configurar automatización"
       subtitle="Step 3 of 3"
       primaryAction={{
-        content: "Next Step",
+        content: "Siguiente paso",
         url: "/app",
         disabled: !canContinue
       }}
@@ -52,7 +52,7 @@ export default function WizardStep3(): JSX.Element {
             plain: true,
             url: automationButton.url,
             target: "_blank",
-            content: 'Learn more',
+            content: 'leer más',
             icon: ExternalIcon
           }}
           description={automationButton.description}
