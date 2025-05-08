@@ -19,12 +19,7 @@ export const readEntity = async (shop: string): Promise<Config | undefined> => {
   return entity;
 };
 
-export const createEntity = async (config: Config) => {
-
-  // TODO: read old config
-
-  // TODO: merge config with new config
-
+export const upsertEntity = async (config: Config) => {
   try {
 
     // update registry in datastore
@@ -42,3 +37,15 @@ export const createEntity = async (config: Config) => {
     console.log(ex);
   }
 };
+
+
+export const addAutomation = async (shop: string, integration: Integration) => {
+    const oldData = await readEntity(shop);
+  const oldIntegrations = oldData?.integrations || [];
+
+  // save to database
+  upsertEntity({
+    shop: shop,
+    integrations: [...oldIntegrations, integration]
+  });
+}

@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "163e18bcb0dcb41881cbefe2e6b02d18"
-application_url = "https://properly-gsm-gps-soft.trycloudflare.com"
+application_url = "https://relocation-wall-decided-cedar.trycloudflare.com"
 embedded = true
 name = "rickycito-test"
 handle = "rickycito-test"
@@ -16,13 +16,13 @@ use_legacy_install_flow = false
 
 [auth]
 redirect_urls = [
-  "https://properly-gsm-gps-soft.trycloudflare.com/auth/callback",
-  "https://properly-gsm-gps-soft.trycloudflare.com/auth/shopify/callback",
-  "https://properly-gsm-gps-soft.trycloudflare.com/api/auth/callback"
+  "https://relocation-wall-decided-cedar.trycloudflare.com/auth/callback",
+  "https://relocation-wall-decided-cedar.trycloudflare.com/auth/shopify/callback",
+  "https://relocation-wall-decided-cedar.trycloudflare.com/api/auth/callback"
 ]
 
 [app_proxy]
-url = "https://properly-gsm-gps-soft.trycloudflare.com"
+url = "https://relocation-wall-decided-cedar.trycloudflare.com"
 subpath = "cn-byf-ext-config"
 prefix = "apps"
 

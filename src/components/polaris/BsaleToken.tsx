@@ -2,8 +2,19 @@ import { Link, AccountConnection } from "@shopify/polaris";
 import { useState, useCallback, useEffect } from "react";
 import RUTInput from "./RUTInput";
 
+
+interface BsaleTokenProps {
+  bsaleAPPID: string;
+  onAccountConnected: CallableFunction;
+  onAccountDisconnected: CallableFunction;
+};
+
 export default function BsaleToken(
-  { onAccountConnected, onAccountDisconnected }: { onAccountConnected: CallableFunction, onAccountDisconnected: CallableFunction }
+  {
+    bsaleAPPID,
+    onAccountConnected,
+    onAccountDisconnected
+  }: BsaleTokenProps
 ) {
 
   // init state
@@ -40,7 +51,7 @@ export default function BsaleToken(
     // init login
     // TODO: move app_id to an environment variable
     window.open(
-      `https://oauth.bsale.io/login?app_id=7vz13ywk9&redirect_uri=${window.location.origin}/bsale/code/${id}&client_code=${companyRUT.split('.').join('')}`,
+      `https://oauth.bsale.io/login?app_id=${bsaleAPPID}&redirect_uri=${window.location.origin}/bsale/code/${id}&client_code=${companyRUT.split('.').join('')}`,
       "_blank"
     );
   }, [companyRUT, id]);

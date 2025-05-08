@@ -14,8 +14,9 @@ class Bsale {
     this.proxyURL = proxyURL;
   }
 
-  getOffices = async () => {
-    const response = await fetch(`${this.proxyURL}/bsale/proxy`, {
+  get = async (endpoint: string) => {
+    const response = await fetch(
+      `${this.proxyURL}/bsale/proxy?endpoint=${endpoint}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -23,6 +24,31 @@ class Bsale {
       }
     });
     const data = await response.json();
+    return data;
+  }
+
+  getOffices = async () => {
+    const data = await this.get('offices.json');
+    return data;
+  }
+
+  getPaymentTypes = async () => {
+    const data = await this.get('payment_types.json');
+    return data;
+  }
+
+  getSellers = async () => {
+    const data = await this.get('users.json');
+    return data;
+  }
+
+  getPriceLists = async () => {
+    const data = await this.get('price_lists.json');
+    return data;
+  }
+
+  getDocumentTypes = async () => {
+    const data = await this.get('document_types.json');
     return data;
   }
 }

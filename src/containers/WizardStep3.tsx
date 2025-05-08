@@ -10,11 +10,10 @@ import {
 import { useState } from "react";
 
 
-// TODO: move this to a API.
 const automationButton = {
   id: "1",
   type: "bsale-inventory",
-  image: '/card-placeholder.png',
+  image: '/bsale-con-shopify.png',
   title: "Sincronización de inventario",
   description: "Sincronización de inventario",
   url: "https://www.loadingplay.com/",
@@ -31,19 +30,19 @@ export default function WizardStep3(): JSX.Element {
       title="Configurar automatización"
       subtitle="Step 3 of 3"
       primaryAction={{
-        content: "Siguiente paso",
+        content: "Finalizar",
         url: "/app",
         disabled: !canContinue
       }}
-      backAction={{ url: "/app/wizard/2" }}
     >
       <div style={{ width: "70%", maxWidth: "300px", marginRight: "auto", marginLeft: "auto" }} >
         <MediaCard
           portrait
           title={automationButton.title}
           primaryAction={{
-            // TODO: mejorar mensaje
-            content: isEnabled ? "Deshabilitar" : "Habilitar",
+            disabled: true,
+            // content: isEnabled ? "Deshabilitar" : "Habilitar",
+            content: "configurando...",
             // tslint:disable-next-line
             variant: isEnabled ? "secondary" : "primary",
             onAction: () => { setIsEnabled(!isEnabled) },
@@ -55,11 +54,10 @@ export default function WizardStep3(): JSX.Element {
             content: 'leer más',
             icon: ExternalIcon
           }}
-          description={automationButton.description}
+          description="Nuestro equipo de soporte está trabajando para habilitar esta automatización. Te avisaremos cuando esté lista."
         >
           {/* // TODO: add badges to the picture */}
           <img src={automationButton.image} alt="Card placeholder" style={{
-            // TODO: move to css file
             width: "100%",
             objectFit: "cover"
           }} ></img>

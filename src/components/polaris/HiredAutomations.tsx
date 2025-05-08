@@ -1,5 +1,6 @@
 import {
-  Page, Layout, MediaCard
+  Page, Layout, MediaCard,
+  Badge
 } from "@shopify/polaris";
 
 import {
@@ -26,12 +27,7 @@ export default function HiredAutomations({ automations }: { automations: HiredAu
                 <MediaCard
                   portrait
                   title={automation.title}
-                  primaryAction={{
-                    content: "Selected",
-                    // tslint:disable-next-line
-                    variant: "primary",
-                    onAction: () => { },
-                  }}
+                  description={automation.description}
                   secondaryAction={{
                     plain: true,
                     url: automation.url,
@@ -39,14 +35,16 @@ export default function HiredAutomations({ automations }: { automations: HiredAu
                     content: 'leer más',
                     icon: ExternalIcon
                   }}
-                  description={automation.description}
                 >
-                  {/* // TODO: add badges to the picture */}
                   <img src={automation.image} alt="Card placeholder" style={{
                     // TODO: move to css file
                     width: "100%",
                     objectFit: "cover"
                   }} ></img>
+
+                  <div style={{ marginLeft: "15px", position: "relative" }} >
+                    <Badge tone="warning" >Configurando...</Badge>
+                  </div>
                 </MediaCard>
               </div>
             </Layout.Section>

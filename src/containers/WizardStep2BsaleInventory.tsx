@@ -6,13 +6,29 @@ import {
   Button,
   Text
 } from "@shopify/polaris";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { BsaleDataSelect } from "src/components/polaris/BsaleDataSelect";
 import BsaleToken from "src/components/polaris/BsaleToken";
-import AsyncSelect from "src/components/polaris/AsyncSelect";
-import Bsale from "src/infra/Bsale";
+// import { BsaleOfficeSelect } from "src/components/polaris/BsaleOfficeSelect";
+import { ShopifyOfficeSelect } from "src/components/polaris/ShopifyOfficeSelect";
+import { withBsaleOffices } from "src/hoc/withBsaleOffices";
+
+interface WizardStep2BsaleInventoryProps {
+  bsaleAPPID: string;
+  apiURL: string;
+  shopifyLocations: any[];
+  onSubmit: CallableFunction;
+}
+
+const BsaleOfficeSelect = withBsaleOffices(BsaleDataSelect);
 
 
-export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { apiURL: string, shopifyLocations: any[], onSubmit: CallableFunction }): JSX.Element {
+export default function WizardStep2BsaleInventory({
+  bsaleAPPID,
+  apiURL,
+  shopifyLocations,
+  onSubmit
+}: WizardStep2BsaleInventoryProps): JSX.Element {
 
   // TODO: change access token to empty string by default
   const [accessToken, setAccessToken] = useState('d2f8a9321e2ae69af120e97fc54f5021f0efbe5e');
@@ -21,10 +37,10 @@ export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { ap
   const [isConnected, setIsConnected] = useState(true);
 
   const [canContinue] = useState(true);
-  const [bsaleOffices, setBsaleOffices] = useState([]);
 
-  const [selectedBsaleOffice, setSelectedBsaleOffice] = useState('');
-  const [selectedShopifyLocation, setSelectedShopifyLocation] = useState('');
+  const [selectedBsaleOffice, setSelectedBsaleOffice] = useState(null);
+  const [selectedShopifyLocation, setSelectedShopifyLocation] = useState(null);
+
 
   const handleAccountConnected = useCallback((accessToken: string) => {
     setIsConnected(true);
@@ -35,25 +51,6 @@ export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { ap
     setIsConnected(false);
     setAccessToken('');
   }, [setIsConnected]);
-
-  useEffect(() => {
-    const bsale = new Bsale(apiURL, accessToken);
-
-    bsale.getOffices().then((data) => {
-      setBsaleOffices(data.items.map((item: any) => {
-        return { label: item.name, value: item.id.toString() }
-      }))
-    });
-
-  }, [apiURL, accessToken]);
-
-  const handleBsaleOfficeChange = useCallback((value: string) => {
-    setSelectedBsaleOffice(value);
-  }, [setSelectedBsaleOffice]);
-
-  const handleShopifyLocationChange = useCallback((value: string) => {
-    setSelectedShopifyLocation(value);
-  }, [setSelectedShopifyLocation]);
 
   const handleSubmitClick = useCallback(() => {
     onSubmit(selectedBsaleOffice, selectedShopifyLocation);
@@ -72,29 +69,25 @@ export default function WizardStep2({ apiURL, shopifyLocations, onSubmit }: { ap
     >
 
       <div style={{ width: "70%", marginRight: "auto", marginLeft: "auto" }} >
-        {/* // TODO: move this to a css file ^^ */}
         <Form onSubmit={handleSubmitClick} >
           <FormLayout>
             <BsaleToken
+              bsaleAPPID={bsaleAPPID}
               onAccountConnected={handleAccountConnected}
               onAccountDisconnected={handleAccountDisconnected}
             />
 
-            {/* // TODO: move to a bsale component */}
-            <AsyncSelect
-              label="Select Bsale Office"
-              options={bsaleOffices}
-              onChange={handleBsaleOfficeChange}
-            />
+            <BsaleOfficeSelect
+              apiURL={apiURL}
+              accessToken={accessToken}
+              onChange={setSelectedBsaleOffice}
+            ></BsaleOfficeSelect>
 
-            {/* // TODO: move to a shopify component */}
-            <AsyncSelect
-              label="Elige la ubicación de Shopify"
-              options={shopifyLocations}
-              onChange={handleShopifyLocationChange}
-            />
+            <ShopifyOfficeSelect
+              shopifyLocations={shopifyLocations}
+              onChange={setSelectedShopifyLocation}
+            ></ShopifyOfficeSelect>
 
-            {/* // TODO: write correct text and add a link to support */}
             <Text as="p" alignment="center" >
               Si necesitas ayuda, pof favor contacta a nuestro <a href="https://www.loadingplay.com" target="__blank" >soporte técnico</a>.
             </Text>

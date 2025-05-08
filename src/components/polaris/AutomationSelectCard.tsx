@@ -38,7 +38,6 @@ export default function AutomationSelectCard(
     >
       {/* // TODO: add badges to the picture */}
       <img src={automationButton.image} alt="Card placeholder" style={{
-        // TODO: move to css file
         width: "100%",
         objectFit: "cover"
       }} ></img>

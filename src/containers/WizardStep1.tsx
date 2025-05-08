@@ -6,8 +6,10 @@ import SelectAutomation from "src/components/polaris/SelectAutomation";
 export default function WizardStep1({ automations }: { automations: Automation[] }) {
   // set states
   const [disabled, setDisabled] = useState(true);
+  const [selectedAutomation, setSelectedAutomation] = useState<AutomationButton | undefined>(undefined);
   const handleSelectedAutomationChange = (automation: AutomationButton) => {
     setDisabled(automation === undefined);
+    setSelectedAutomation(automation);
   };
 
   return (
@@ -15,8 +17,8 @@ export default function WizardStep1({ automations }: { automations: Automation[]
       title="Elige la automatización que quieres crear"
       subtitle="Paso 1 de 3"
       primaryAction={{
-        content: "Siguiente",
-        url: "/app/wizard/2",
+        content: "Continuar",
+        url: '/app/wizard/2/' + selectedAutomation?.type,
         disabled: disabled
       }}
       backAction={{ url: "/app/" }}
@@ -27,7 +29,6 @@ export default function WizardStep1({ automations }: { automations: Automation[]
           onAutomationChange={handleSelectedAutomationChange}
         />
       </Layout>
-      {/* // TODO: add support link */}
     </Page>
   );
 

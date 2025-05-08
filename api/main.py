@@ -21,12 +21,11 @@ def read_root():
 
 
 @app.get("/bsale/proxy")
-def bsale_proxy_get(access_token: str = Header(None)):
-    print("access_token", access_token)
-    # TODO: move url to argument to make it more general
-    # TODO: implement bsale API Rate limiter
+def bsale_proxy_get(endpoint: str, access_token: str = Header(None)):
+    print("access_token", access_token, endpoint)
     response = requests.get(
-        "https://api.bsale.cl/v1/offices.json",
+        # "https://api.bsale.cl/v1/offices.json",
+        f"https://api.bsale.cl/v1/{endpoint}",
         headers={"access_token": access_token}
     )
     return response.json()
